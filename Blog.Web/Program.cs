@@ -1,4 +1,6 @@
 using Blog.Web.Data;
+using Blog.Web.Repositories;
+using Blog.Web.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web
@@ -12,6 +14,7 @@ namespace Blog.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BlogDbConnection")));
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
 
             var app = builder.Build();
 
