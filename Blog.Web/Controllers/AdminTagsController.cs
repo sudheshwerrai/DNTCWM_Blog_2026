@@ -1,9 +1,10 @@
-﻿using Blog.Web.Models.ViewModels;
+﻿using Blog.Web.Models.Domain;
+using Blog.Web.Models.ViewModels;
 using Blog.Web.Repositories.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Blog.Web.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Threading.Tasks;
 
 namespace Blog.Web.Controllers
 {
@@ -43,6 +44,54 @@ namespace Blog.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(tagRequest);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var tagFromDb = await _tagRepository.GetAsync(id);
+            if (tagFromDb == null)
+                return NotFound();
+
+            var tagVM = new TagRequest
+            {
+                Id = tagFromDb.Id,
+                Name = tagFromDb.Name,
+                DisplayName = tagFromDb.DisplayName
+            };
+            return View(tagVM);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(TagRequest tagRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                var tag = new Tag
+                {
+                    Id = tagRequest.Id,
+                    Name = tagRequest.Name,
+                    DisplayName = tagRequest.DisplayName
+                };
+
+                await _tagRepository.UpdateAsync(tag);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(tagRequest);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var tagFromDb = await _tagRepository.GetAsync(id);
+            if (tagFromDb == null)
+                return BadRequest();
+            await _tagRepository.DeleteAsync(tagFromDb);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

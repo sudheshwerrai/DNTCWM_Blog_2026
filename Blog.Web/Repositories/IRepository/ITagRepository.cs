@@ -8,6 +8,6 @@ namespace Blog.Web.Repositories.IRepository
         Task<Tag> GetAsync(Guid id);
         Task AddAsync(Tag tag);
         Task UpdateAsync(Tag tag);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(Tag tag);
     }
 }

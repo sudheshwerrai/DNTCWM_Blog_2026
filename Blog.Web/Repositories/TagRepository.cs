@@ -16,7 +16,7 @@ namespace Blog.Web.Repositories
 
         public async Task<IEnumerable<Tag>> GetAllAsync()
         {
-           return await _dbContext.Tags.ToListAsync();
+            return await _dbContext.Tags.ToListAsync();
         }
 
         public async Task<Tag> GetAsync(Guid id)
@@ -36,14 +36,11 @@ namespace Blog.Web.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Tag tag)
         {
-           var tagFromDb= await _dbContext.Tags.FirstOrDefaultAsync(t => t.Id == id);
-            if (tagFromDb != null)
-            {
-                _dbContext.Tags.Remove(tagFromDb);
-                await _dbContext.SaveChangesAsync();
-            }
+            _dbContext.Tags.Remove(tag);
+            await _dbContext.SaveChangesAsync();
+
         }
     }
 }
