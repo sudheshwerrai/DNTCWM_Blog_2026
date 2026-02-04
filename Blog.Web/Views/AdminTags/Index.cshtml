@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Tag>
 
+
 @{
     ViewData["Title"] = "Tag List";
 }
@@ -13,9 +14,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="mb-0">@ViewData["Title"]</h1>
+    
     <a asp-controller="AdminTags" asp-action="Add" class="btn btn-primary">Add New Tag</a>
 </div>
-
+<partial name="_SuccessMessage" />
 @if (Model == null || !Model.Any())
 {
     <div class="alert alert-info">No tags found.</div>

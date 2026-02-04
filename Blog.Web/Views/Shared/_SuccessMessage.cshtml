@@ -1,0 +1,18 @@
+﻿@using Blog.Web.Utility
+
+@if (TempData[SD.SuccessKey] != null)
+{
+    <div id="successMessage" class="col-12 text-success">
+        <p>@TempData[SD.SuccessKey]</p>
+    </div>
+}
+
+<script>
+  setTimeout(function(){
+        var msg=document.getElementById("successMessage");
+        if(msg)
+        {
+              msg.style.display="none";
+        }
+  },3000)
+</script>

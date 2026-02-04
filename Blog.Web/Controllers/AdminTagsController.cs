@@ -1,6 +1,7 @@
 ﻿using Blog.Web.Models.Domain;
 using Blog.Web.Models.ViewModels;
 using Blog.Web.Repositories.IRepository;
+using Blog.Web.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -41,6 +42,7 @@ namespace Blog.Web.Controllers
                     DisplayName = tagRequest.DisplayName
                 };
                 await _tagRepository.AddAsync(tag);
+                TempData[SD.SuccessKey] = SD.TagAdded;
                 return RedirectToAction(nameof(Index));
             }
             return View(tagRequest);
@@ -77,6 +79,7 @@ namespace Blog.Web.Controllers
                 };
 
                 await _tagRepository.UpdateAsync(tag);
+                TempData[SD.SuccessKey] = SD.TagUpdated;
                 return RedirectToAction(nameof(Index));
             }
             return View(tagRequest);
@@ -91,6 +94,7 @@ namespace Blog.Web.Controllers
             if (tagFromDb == null)
                 return BadRequest();
             await _tagRepository.DeleteAsync(tagFromDb);
+            TempData[SD.SuccessKey] = SD.TagDeleted;
             return RedirectToAction(nameof(Index));
         }
     }
