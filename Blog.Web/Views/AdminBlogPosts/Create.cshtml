@@ -1,0 +1,90 @@
+﻿@model BlogPostRequest
+
+@{
+    ViewData["Title"] = "Create Blog Post";
+}
+
+<h1>Create Blog Post</h1>
+
+<p>
+    <a class="btn btn-secondary" asp-controller="AdminBlogPosts" asp-action="Index">Back to list</a>
+</p>
+
+<form asp-controller="AdminBlogPosts" asp-action="Create" method="post" class="row g-3">
+    @Html.AntiForgeryToken()
+
+    <div class="col-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.Heading" class="form-label"></label>
+        <input asp-for="BlogPost.Heading" class="form-control" />
+        <span asp-validation-for="BlogPost.Heading" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.PageTitle" class="form-label"></label>
+        <input asp-for="BlogPost.PageTitle" class="form-control" />
+        <span asp-validation-for="BlogPost.PageTitle" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.UrlHandle" class="form-label"></label>
+        <input asp-for="BlogPost.UrlHandle" class="form-control" />
+        <span asp-validation-for="BlogPost.UrlHandle" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.Author" class="form-label"></label>
+        <input asp-for="BlogPost.Author" class="form-control" />
+        <span asp-validation-for="BlogPost.Author" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="BlogPost.ShortDescription" class="form-label"></label>
+        <textarea asp-for="BlogPost.ShortDescription" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="BlogPost.ShortDescription" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="BlogPost.Content" class="form-label"></label>
+        <textarea asp-for="BlogPost.Content" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="BlogPost.Content" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.FeaturedImageUrl" class="form-label"></label>
+        <input asp-for="BlogPost.FeaturedImageUrl" class="form-control" />
+        <span asp-validation-for="BlogPost.FeaturedImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="BlogPost.PublishedDate" class="form-label"></label>
+        <input asp-for="BlogPost.PublishedDate" type="datetime-local" class="form-control"
+               value="@(Model?.BlogPost?.PublishedDate.ToString("yyyy-MM-ddTHH:mm") ?? string.Empty)" />
+        <span asp-validation-for="BlogPost.PublishedDate" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Tags</label>
+        <select asp-for="SelectedTags" asp-items="Model.Tags" multiple class="form-select" size="6"></select>
+        <small class="form-text text-muted">Hold Ctrl (Windows) / Cmd (Mac) to select multiple.</small>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-center">
+        <div class="form-check">
+            <input asp-for="BlogPost.Visible" class="form-check-input" />
+            <label asp-for="BlogPost.Visible" class="form-check-label"></label>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-outline-secondary ms-2" asp-controller="AdminBlogPosts" asp-action="Index">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
