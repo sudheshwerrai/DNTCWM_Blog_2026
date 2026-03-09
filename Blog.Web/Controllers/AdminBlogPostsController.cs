@@ -34,9 +34,48 @@ namespace Blog.Web.Controllers
             var blogPost = new BlogPostRequest
             {
                 Tags = tags.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }),
-                BlogPost=new BlogPost()
+                BlogPost = new BlogPost()
             };
             return View(blogPost);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(BlogPostRequest blogPostRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                var blogPost = new BlogPost
+                {
+                    Heading = blogPostRequest.BlogPost.Heading,
+                    PageTitle = blogPostRequest.BlogPost.PageTitle,
+                    Content = blogPostRequest.BlogPost.Content,
+                    ShortDescription = blogPostRequest.BlogPost.ShortDescription,
+                    FeaturedImageUrl = blogPostRequest.BlogPost.FeaturedImageUrl,
+                    UrlHandle = blogPostRequest.BlogPost.UrlHandle,
+                    PublishedDate = blogPostRequest.BlogPost.PublishedDate,
+                    Author = blogPostRequest.BlogPost.Author,
+                    Visible = blogPostRequest.BlogPost.Visible,
+                };
+
+                var listOfTags = new List<Tag>();
+
+                foreach (var selectedTagId in blogPostRequest.SelectedTags)
+                {
+                    var selectedTag = Guid.Parse(selectedTagId);
+                    var existingTag = await _tagRepository.GetAsync(selectedTag);
+                    if (existingTag != null) 
+                    {
+                        listOfTags.Add(existingTag);
+                    }
+                }
+
+                blogPost.Tags=listOfTags;
+                await _blogPostRepository.AddAsync(blogPost);
+                return RedirectToAction(nameof(Index));
+            }
+            return BadRequest();
         }
 
     }
