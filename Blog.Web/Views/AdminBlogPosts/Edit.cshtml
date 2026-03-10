@@ -4,15 +4,15 @@
     ViewData["Title"] = "Create Blog Post";
 }
 
-<h1>Create Blog Post</h1>
+<h1>Edit Blog Post</h1>
 
 <p>
     <a class="btn btn-secondary" asp-controller="AdminBlogPosts" asp-action="Index">Back to list</a>
 </p>
 
-<form asp-controller="AdminBlogPosts" asp-action="Create" method="post" class="row g-3">
+<form asp-controller="AdminBlogPosts" asp-action="Edit" method="post" class="row g-3">
     @Html.AntiForgeryToken()
-
+    <input type="hidden" asp-for="BlogPost.Id" />
     <div class="col-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
@@ -77,11 +77,11 @@
     </div>
 
     @* <div class="col-md-6 d-flex align-items-center">
-       
+        
     </div> *@
 
     <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         <a class="btn btn-outline-secondary ms-2" asp-controller="AdminBlogPosts" asp-action="Index">Cancel</a>
     </div>
 </form>
