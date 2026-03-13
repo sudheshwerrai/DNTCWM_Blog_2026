@@ -1,0 +1,16 @@
+﻿<script>
+    function generateSlug()
+    {        
+       var text= document.getElementById('title').value;
+
+       var slug= text
+            .toLowerCase()                // convert to lowercase
+            .trim()                       // remove extra spaces
+            .replace(/[^\w\s-]/g, '')     // remove special characters
+            .replace(/\s+/g, '-')         // replace spaces with -
+            .replace(/--+/g, '-');        // remove multiple -
+
+            document.getElementById('slug').value=slug;
+    }
+
+</script>

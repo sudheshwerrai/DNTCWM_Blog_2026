@@ -25,14 +25,13 @@
 
     <div class="col-md-6">
         <label asp-for="BlogPost.PageTitle" class="form-label"></label>
-        <input asp-for="BlogPost.PageTitle" class="form-control" />
+        <input asp-for="BlogPost.PageTitle" id="title" onblur="generateSlug()" class="form-control" />
         <span asp-validation-for="BlogPost.PageTitle" class="text-danger"></span>
     </div>
 
     <div class="col-md-6">
         <label asp-for="BlogPost.UrlHandle" class="form-label"></label>
-        <input asp-for="BlogPost.UrlHandle" class="form-control" />
-        <span asp-validation-for="BlogPost.UrlHandle" class="text-danger"></span>
+        <input asp-for="BlogPost.UrlHandle" id="slug" class="form-control" />        
     </div>
 
     <div class="col-md-6">
@@ -49,7 +48,7 @@
 
     <div class="col-12">
         <label asp-for="BlogPost.Content" class="form-label"></label>
-        <textarea asp-for="BlogPost.Content" class="form-control" rows="10"></textarea>
+        <textarea asp-for="BlogPost.Content" id="content" class="form-control" rows="10"></textarea>
         <span asp-validation-for="BlogPost.Content" class="text-danger"></span>
     </div>
 
@@ -88,4 +87,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_GenerateSlug" />
+    <partial name="_FroalaEditor" />
 }
