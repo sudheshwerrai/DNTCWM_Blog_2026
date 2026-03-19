@@ -53,9 +53,15 @@
     </div>
 
     <div class="col-md-6">
+        <label class="form-label">Feature Image Upload</label>
+        <input type="file" id="featuredImageUpload" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <img src="" id="featuredImageShow" style="display:none;height:200px;width:200px"/>
+    </div>
+    <div class="col-md-6">
         <label asp-for="BlogPost.FeaturedImageUrl" class="form-label"></label>
-        <input asp-for="BlogPost.FeaturedImageUrl" class="form-control" />
-        <span asp-validation-for="BlogPost.FeaturedImageUrl" class="text-danger"></span>
+        <input asp-for="BlogPost.FeaturedImageUrl" id="featuredImageUrl" readonly class="form-control" />      
     </div>
 
     <div class="col-md-6">
@@ -89,4 +95,5 @@
     <partial name="_ValidationScriptsPartial" />
     <partial name="_GenerateSlug" />
     <partial name="_FroalaEditor" />
+    <partial name="_CloudinaryImageUpload" />
 }
