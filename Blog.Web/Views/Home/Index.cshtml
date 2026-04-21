@@ -36,7 +36,7 @@ else
                         <p class="card-text text-muted small mb-2">By @post.Author on @post.PublishedDate.ToString("MMM d, yyyy")</p>
                         <p class="card-text">@(!string.IsNullOrWhiteSpace(post.ShortDescription) ? (post.ShortDescription.Length > 150 ? post.ShortDescription.Substring(0, 150) + "..." : post.ShortDescription) : "")</p>
                         <div class="mt-auto">
-                            <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Details" asp-route-urlHandle="@post.UrlHandle">Read more</a>
+                            <a class="btn btn-sm btn-primary" asp-controller="Blogs" asp-action="BlogPostDetail" asp-route-urlHandle="@post.UrlHandle">Read more</a>
                         </div>
                     </div>
                 </div>

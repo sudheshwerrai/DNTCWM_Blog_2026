@@ -1,0 +1,69 @@
+﻿@model BlogDetailsViewModel
+
+@{
+    ViewData["Title"] = Model?.PageTitle ?? Model?.Heading ?? "Blog Post";
+}
+
+<div class="mb-4">
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
+
+@if (Model == null)
+{
+    <div class="alert alert-warning">Blog post not found.</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-1">@Model.Heading</h1>
+            <p class="text-muted small">By @Model.Author on @Model.PublishedDate.ToString("MMM d, yyyy")</p>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.FeaturedImageUrl))
+        {
+            <div class="col-12 mb-3">
+                <img src="@Model.FeaturedImageUrl" alt="@Model.Heading" class="img-fluid rounded shadow-sm" style="max-height:420px; width:100%; object-fit:cover;" />
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+        {
+            <div class="col-12 mb-3">
+                <p class="lead">@Model.ShortDescription</p>
+            </div>
+        }
+
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    @if (!string.IsNullOrWhiteSpace(Model.Content))
+                    {
+                        @Html.Raw(Model.Content)
+                    }
+                    else
+                    {
+                        <p class="text-muted">No content available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="d-flex flex-wrap gap-2">
+                @if (Model.Tags != null && Model.Tags.Any())
+                {
+                    foreach (var tag in Model.Tags)
+                    {
+                        var display = string.IsNullOrWhiteSpace(tag.DisplayName) ? tag.Name : tag.DisplayName;
+                        <span class="badge bg-secondary">@display</span>
+                    }
+                }
+                else
+                {
+                    <span class="text-muted">No tags</span>
+                }
+            </div>
+        </div>
+    </div>
+}
